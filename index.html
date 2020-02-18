@@ -58,6 +58,22 @@
             border-radius: 5px;
             height: 27vh;
         }
+
+        .correct {
+            font-size: 2.4em;
+            letter-spacing: 2px;
+            border-style: solid;
+            border-color: greenyellow;
+            border-radius: 25px;
+        }
+
+        .wrong {
+            font-size: 2.4em;
+            letter-spacing: 2px;
+            border-style: solid;
+            border-color: red;
+            border-radius: 25px;
+        }
     </style>
 </head>
 
@@ -127,7 +143,10 @@
                 </div>
                 <div class="row p-2">
                     <div class="col-12 bg-dark touchpad p-1" id="touchZone">
-                        <div class="col-12 bg-dark touchpad1"></div>
+                        <div class="col-12 bg-dark touchpad1">
+                            <p class="mb-0 text-white d-inline">รอบ : </p>
+                            <p class="mb-0 text-white d-inline" id="rounds">0</p>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -152,6 +171,7 @@
                         } else if (id == 'startScreen') {
                             showScreen('mainScreen')
                             set_score("reset")
+                            set_round("reset")
                         }
                     }
 
@@ -165,6 +185,9 @@
                     let key = "" // store direction key
                     let user_input = " " // emoji direction input
                     let wrong = 0 // check direction wrong
+                    let digit = 0 // display digit 
+                    let old_digit = 0 // old digit
+                    let round = 1 // play round
 
                     let xDown = null
                     let yDown = null
@@ -239,18 +262,24 @@
                         }
 
                         if (wrong) {
+                            statusWrong()
                             reset_input()
                             // reset wrong check
                             wrong = 0
                             //  minus score
                             set_score("minus")
+                            // add round
+                            set_round("add")
                         }
 
                         // all match
-                        if (position == 7) {
+                        if (position == digit) {
+                            statusCorrect()
                             emoji_start()
                             // plus score
                             set_score("plus")
+                            // add round
+                            set_round("add")
                         }
 
                         /* reset values */
@@ -262,8 +291,11 @@
                         text = ""
                         key = ""
                         reset_input()
+                        old_digit = digit
+                        digit = randomInt(4, 7)
+                        rounds.innerText = `${round}`
 
-                        for (let i = 0; i < 7; i++) {
+                        for (let i = 0; i < digit; i++) {
                             let random = Math.floor(Math.random() * 4)
                             key += direction[random]
                             if (direction[random] == "U") {
@@ -290,11 +322,45 @@
                         if (type == "reset") {
                             score = 0
                         } else if (type == "plus") {
-                            score += 1
+                            score += old_digit
                         } else if (type == "minus") {
-                            score -= 1
+                            score -= (digit)
                         }
                         point.innerText = `${score}`
+                    }
+
+                    function randomInt(min, max) {
+                        min = Math.ceil(min);
+                        max = Math.floor(max);
+                        return Math.floor(Math.random() * (max - min + 1)) + min;
+                    }
+
+                    function set_round(type) {
+                        if (type == "add") {
+                            round += 1
+                            rounds.innerText = `${round}`
+                        } else if (type == "reset") {
+                            round = 1
+                            rounds.innerText = `${round}`
+                        }
+                    }
+
+                    function statusCorrect() {
+                        emoji_input.classList.remove("emoji")
+                        emoji_input.classList.add("correct")
+                        setTimeout(() => {
+                            emoji_input.classList.remove("correct")
+                            emoji_input.classList.add("emoji")
+                        }, 300)
+                    }
+
+                    function statusWrong() {
+                        emoji_input.classList.remove("emoji")
+                        emoji_input.classList.add("wrong")
+                        setTimeout(() => {
+                            emoji_input.classList.remove("wrong")
+                            emoji_input.classList.add("emoji")
+                        }, 300)
                     }
                 </script>
 
