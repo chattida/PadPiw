@@ -22,13 +22,46 @@
         }
 
         .title {
-            font-size: 4.8em;
+            font-size: 5.8em;
             text-shadow: 3px 2px white;
+        }
+
+        .show {
+            display: flex;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .emoji {
+            font-size: 2.4em;
+            letter-spacing: 2px;
+            border-style: solid;
+            border-color: coral;
+            border-radius: 25px;
+        }
+
+        .score {
+            font-size: 1.7em;
+        }
+
+        .touchpad {
+            height: 28vh;
+            border-radius: 5px;
+        }
+
+        .touchpad1 {
+            border-width: 1px;
+            border-style: solid;
+            border-color: white;
+            border-radius: 5px;
+            height: 27vh;
         }
     </style>
 </head>
 
-<body class="color-yellow">
+<body class="color-yellow fixed-top">
     <!-- navbar -->
     <nav class="navbar navbar-light color-brown">
         <a class="navbar-brand text-white" href=".">
@@ -37,13 +70,13 @@
     </nav>
 
     <!-- container -->
-    <div class="container-fluid" style="height: 90vh">
+    <div class="container-fluid" style="height: 80vh">
         <!-- mainDisplay -->
-        <div class="row h-100">
-            <div class="col-12 my-auto" id="mainScreen">
-                <p class="m-4 text-center title">ปัดปิ้ว~</p>
+        <div class="row h-100 show" id="mainScreen">
+            <div class="col-12 my-auto">
+                <p class="mb-4 text-center title">ปัดปิ้ว</p>
                 <div class="d-block text-center">
-                    <button class="btn btn-lg btn-danger mb-4">เริ่มเล่น</button>
+                    <button class="btn btn-lg btn-danger mb-4" onclick="hideScreen('mainScreen')">เริ่มเล่น</button>
                 </div>
                 <div class="d-block text-center">
                     <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#howTo" data-keyboard="true"
@@ -57,7 +90,7 @@
                             <div class="modal-header">
                                 <h5>วิธีการเล่น 🕹</h5>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body text-center">
                                 <p>1. บลาบลาบลาบลา</p>
                                 <p>2. บลาบลาบลาบลา</p>
                                 <p>3. บลาบลาบลาบลา</p>
@@ -73,14 +106,201 @@
                 </div>
             </div>
         </div>
+        <!-- startDisplay -->
+        <div class="row h-100 hide" id="startScreen">
+            <div class="col-12 my-auto">
+                <div class="row">
+                    <div class="col-12 text-center my-3">
+                        <p class="score d-inline">คะแนน : </p>
+                        <p class="score d-inline" id="point">0</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p id="emoji_output" class="emoji mb-2">🚫</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p id="emoji_input" class="emoji mb-2">🚫</p>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-12 bg-dark touchpad p-1" id="touchZone">
+                        <div class="col-12 bg-dark touchpad1"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-danger" onclick="hideScreen('startScreen')">ออกจากเกม</button>
+                    </div>
+                </div>
+                <!-- script -->
+                <script>
+                    // display function
+                    function showScreen(id) {
+                        document.getElementById(id).classList.remove("hide")
+                        document.getElementById(id).classList.add("show")
+                    }
 
-    </div>
+                    function hideScreen(id) {
+                        document.getElementById(id).classList.remove("show")
+                        document.getElementById(id).classList.add("hide")
+                        if (id == 'mainScreen') {
+                            showScreen('startScreen')
+                            emoji_start()
+                        } else if (id == 'startScreen') {
+                            showScreen('mainScreen')
+                            set_score("reset")
+                        }
+                    }
 
+                    // main function
+                    // direction = ['👆🏻', '👇🏻', '👈🏻', '👉🏻'] // direction emoji
+                    let direction = ["U", "D", "L", "R"] // direction key
 
+                    let score = 0 // game score
+                    let position = 0 // position of key
+                    let text = "" // display key as emoji
+                    let key = "" // store direction key
+                    let user_input = " " // emoji direction input
+                    let wrong = 0 // check direction wrong
 
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+                    let xDown = null
+                    let yDown = null
+
+                    touchZone.addEventListener("touchstart", handleTouchStart, false)
+                    touchZone.addEventListener("touchmove", handleTouchMove, false)
+
+                    function getTouches(evt) {
+                        return (
+                            evt.touches || evt.originalEvent.touches
+                        )
+                    }
+
+                    function handleTouchStart(evt) {
+                        const firstTouch = getTouches(evt)[0]
+                        xDown = firstTouch.clientX
+                        yDown = firstTouch.clientY
+                    }
+
+                    function handleTouchMove(evt) {
+                        if (!xDown || !yDown) {
+                            return
+                        }
+
+                        var xUp = getTouches(evt)[0].clientX
+                        var yUp = getTouches(evt)[0].clientY
+
+                        var xDiff = xDown - xUp
+                        var yDiff = yDown - yUp
+
+                        if (Math.abs(xDiff) > Math.abs(yDiff)) {
+                            /*most significant*/
+                            if (xDiff > 0) {
+                                /* left swipe */
+                                if (key.slice(position, position + 1) == "L") {
+                                    user_input += "👈🏻"
+                                    emoji_input.innerText = user_input
+                                    position += 1
+                                } else {
+                                    wrong = 1
+                                }
+                            } else {
+                                /* right swipe */
+                                if (key.slice(position, position + 1) == "R") {
+                                    user_input += "👉🏻"
+                                    emoji_input.innerText = user_input
+                                    position += 1
+                                } else {
+                                    wrong = 1
+                                }
+                            }
+                        } else {
+                            if (yDiff > 0) {
+                                /* up swipe */
+                                if (key.slice(position, position + 1) == "U") {
+                                    user_input += "👆🏻"
+                                    emoji_input.innerText = user_input
+                                    position += 1
+                                } else {
+                                    wrong = 1
+                                }
+                            } else {
+                                /* down swipe */
+                                if (key.slice(position, position + 1) == "D") {
+                                    user_input += "👇🏻"
+                                    emoji_input.innerText = user_input
+                                    position += 1
+                                } else {
+                                    wrong = 1
+                                }
+                            }
+                        }
+
+                        if (wrong) {
+                            reset_input()
+                            // reset wrong check
+                            wrong = 0
+                            //  minus score
+                            set_score("minus")
+                        }
+
+                        // all match
+                        if (position == 7) {
+                            emoji_start()
+                            // plus score
+                            set_score("plus")
+                        }
+
+                        /* reset values */
+                        xDown = null
+                        yDown = null
+                    }
+
+                    function emoji_start() {
+                        text = ""
+                        key = ""
+                        reset_input()
+
+                        for (let i = 0; i < 7; i++) {
+                            let random = Math.floor(Math.random() * 4)
+                            key += direction[random]
+                            if (direction[random] == "U") {
+                                text += "👆🏻"
+                            } else if (direction[random] == "D") {
+                                text += "👇🏻"
+                            } else if (direction[random] == "L") {
+                                text += "👈🏻"
+                            } else if (direction[random] == "R") {
+                                text += "👉🏻"
+                            }
+                        }
+
+                        emoji_output.innerText = text
+                    }
+
+                    function reset_input() {
+                        position = 0
+                        user_input = ""
+                        emoji_input.innerText = "‏‏‎ ‎"
+                    }
+
+                    function set_score(type) {
+                        if (type == "reset") {
+                            score = 0
+                        } else if (type == "plus") {
+                            score += 1
+                        } else if (type == "minus") {
+                            score -= 1
+                        }
+                        point.innerText = `${score}`
+                    }
+                </script>
+
+                <script src="js/jquery-3.4.1.min.js"></script>
+                <script src="js/popper.min.js"></script>
+                <script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>
