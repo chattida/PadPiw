@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ปัดปิ้ว | PadPiw</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Mali&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Mali', cursive;
+            touch-action: manipulation;
+        }
+
+        .color-brown {
+            background: rgb(75, 31, 51);
+        }
+
+        .color-yellow {
+            background: rgb(255, 190, 91);
+        }
+
+        .title {
+            font-size: 4.8em;
+            text-shadow: 3px 2px white;
+        }
+    </style>
+</head>
+
+<body class="color-yellow">
+    <!-- navbar -->
+    <nav class="navbar navbar-light color-brown">
+        <a class="navbar-brand text-white" href=".">
+            ปัดปิ้ว 🤟🏻
+        </a>
+    </nav>
+
+    <!-- container -->
+    <div class="container-fluid" style="height: 90vh">
+        <!-- mainDisplay -->
+        <div class="row h-100">
+            <div class="col-12 my-auto" id="mainScreen">
+                <p class="m-4 text-center title">ปัดปิ้ว~</p>
+                <div class="d-block text-center">
+                    <button class="btn btn-lg btn-danger mb-4">เริ่มเล่น</button>
+                </div>
+                <div class="d-block text-center">
+                    <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#howTo" data-keyboard="true"
+                        data-focus="true">วิธีการเล่น</button>
+                </div>
+
+                <!-- modal -->
+                <div class="modal fade" id="howTo" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5>วิธีการเล่น 🕹</h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>1. บลาบลาบลาบลา</p>
+                                <p>2. บลาบลาบลาบลา</p>
+                                <p>3. บลาบลาบลาบลา</p>
+                                <p>4. บลาบลาบลาบลา</p>
+                                <p>5. บลาบลาบลาบลา</p>
+                                <p>6. บลาบลาบลาบลา</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-danger" data-dismiss="modal">ปิด</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
