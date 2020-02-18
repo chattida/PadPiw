@@ -3,8 +3,65 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv=" X-UA-Compatible" content="ie=edge">
+
+    <meta name="theme-color" content="#ffbe5b" />
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="ปัดปิ้ว | PadPiw">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="description" content="ปัดปิ้ว PadPiw เกมฝึกสมอง ประลองนิ้ว บริหารนิ้วมือ">
+
     <title>ปัดปิ้ว | PadPiw</title>
+
+    <!-- iOS Homescreen icon -->
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="images/icons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/icons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/icons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/icons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/icons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon-180x180.png">
+
+    <!-- iOS Splash Screen -->
+    <link href="images/splashscreens/iphone5_splash.png"
+        media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image" />
+    <link href="images/splashscreens/iphone6_splash.png"
+        media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image" />
+    <link href="images/splashscreens/iphoneplus_splash.png"
+        media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image" />
+    <link href="images/splashscreens/iphonex_splash.png"
+        media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image" />
+    <link href="images/splashscreens/iphonexr_splash.png"
+        media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image" />
+    <link href="images/splashscreens/iphonexsmax_splash.png"
+        media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image" />
+    <link href="images/splashscreens/ipad_splash.png"
+        media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image" />
+    <link href="images/splashscreens/ipadpro1_splash.png"
+        media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image" />
+    <link href="images/splashscreens/ipadpro3_splash.png"
+        media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image" />
+    <link href="images/splashscreens/ipadpro2_splash.png"
+        media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image" />
+
+    <link rel="shortcut icon" href="images/icons/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Mali&display=swap" rel="stylesheet">
     <style>
@@ -14,16 +71,21 @@
         }
 
         .color-brown {
-            background: rgb(75, 31, 51);
+            background: brown;
         }
 
         .color-yellow {
             background: rgb(255, 190, 91);
         }
 
+        .color-pink {
+            background: coral;
+        }
+
         .title {
             font-size: 5.8em;
-            text-shadow: 3px 2px white;
+            text-shadow: -5px -2px brown;
+            color: white;
         }
 
         .show {
@@ -38,7 +100,7 @@
             font-size: 2.4em;
             letter-spacing: 2px;
             border-style: solid;
-            border-color: coral;
+            border-color: white;
             border-radius: 25px;
         }
 
@@ -63,7 +125,7 @@
             font-size: 2.4em;
             letter-spacing: 2px;
             border-style: solid;
-            border-color: greenyellow;
+            border-color: rgb(96, 226, 96);
             border-radius: 25px;
         }
 
@@ -107,12 +169,12 @@
                                 <h5>วิธีการเล่น 🕹</h5>
                             </div>
                             <div class="modal-body text-center">
-                                <p>1. บลาบลาบลาบลา</p>
-                                <p>2. บลาบลาบลาบลา</p>
-                                <p>3. บลาบลาบลาบลา</p>
-                                <p>4. บลาบลาบลาบลา</p>
-                                <p>5. บลาบลาบลาบลา</p>
-                                <p>6. บลาบลาบลาบลา</p>
+                                <p>1. 👈🏻 ปัดซ้าย</p>
+                                <p>2. 👉🏻 ปัดขวา</p>
+                                <p>3. 👆🏻 ปัดขึ้น</p>
+                                <p>4. 👇🏻 ปัดลง</p>
+                                <p>ตามลำดับนะ บลาบลาบลาบลาบลา</p>
+                                <p class="text-danger">ปัดผิดติดลบ !!!</p>
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-danger" data-dismiss="modal">ปิด</button>
@@ -142,8 +204,8 @@
                     </div>
                 </div>
                 <div class="row p-2">
-                    <div class="col-12 bg-dark touchpad p-1" id="touchZone">
-                        <div class="col-12 bg-dark touchpad1">
+                    <div class="col-12 color-pink touchpad p-1" id="touchZone">
+                        <div class="col-12 color-pink touchpad1">
                             <p class="mb-0 text-white d-inline">รอบ : </p>
                             <p class="mb-0 text-white d-inline" id="rounds">0</p>
                         </div>
